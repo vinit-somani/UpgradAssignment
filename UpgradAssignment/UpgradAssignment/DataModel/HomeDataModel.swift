@@ -1,5 +1,5 @@
 //
-//  AppConstants.swift
+//  HomeDataModel.swift
 //  UpgradAssignment
 //
 //  Created by AiTechnology on 10/5/19.
