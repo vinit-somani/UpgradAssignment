@@ -9,13 +9,13 @@
 import Foundation
 
 protocol HomeViewModelDelegate: NSObjectProtocol {
-    func didFetchData()
     func fetchingFailed(_ shouldRetry: Bool, message: String)
-    func noNetworkConditionHandling()
+//    func noNetworkConditionHandling()
 }
 
-class HomeViewModel {
+class HomeViewModel: Any {
     var currentSortType: SortType?
+    weak var delegate: HomeViewModelDelegate?
     var movieItems: [Movie] = []
     {
         didSet {
@@ -63,6 +63,7 @@ class HomeViewModel {
                 {
                     self.pageNo -= 1
                     print(error.debugDescription)
+                    self.delegate?.fetchingFailed(false, message: "")
                     return
                 }
                 
@@ -73,6 +74,7 @@ class HomeViewModel {
                     }
                 } else {
                     self.pageNo -= 1
+                    self.delegate?.fetchingFailed(false, message: "")
                 }
             }
         }

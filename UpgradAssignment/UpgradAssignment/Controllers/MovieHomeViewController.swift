@@ -12,16 +12,11 @@ class MovieHomeViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
-    
     @IBOutlet weak var activity: UIActivityIndicatorView!
-
-    
     @IBOutlet weak var noDatalabel: UILabel!
-    
-    
+
     var homeViewModel = HomeViewModel()
     var moviewItems = [Movie]()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +29,7 @@ class MovieHomeViewController: UIViewController {
         title = "Popular Movies"
         searchBar.delegate = self
         self.noDatalabel.isHidden = true
+        homeViewModel.delegate = self
         let cellNib = UINib(nibName: MovieCellIdentifier, bundle: nil)
         collectionView.register(cellNib, forCellWithReuseIdentifier: MovieCellIdentifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ActivityCell")
@@ -157,7 +153,7 @@ extension MovieHomeViewController: UICollectionViewDelegate, UICollectionViewDat
 }
 
 //MARK:- Searchbar Delegate
-extension MovieHomeViewController : UISearchBarDelegate
+extension MovieHomeViewController: UISearchBarDelegate
 {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         self.view.endEditing(true)
@@ -172,5 +168,11 @@ extension MovieHomeViewController : UISearchBarDelegate
         if searchText.count > 1 {
             self.homeViewModel.filterMoviesBy(text: searchText)
         }
+    }
+}
+
+extension MovieHomeViewController: HomeViewModelDelegate {
+    func fetchingFailed(_ shouldRetry: Bool, message: String) {
+        self.activity.stopAnimating()
     }
 }
