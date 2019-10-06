@@ -23,7 +23,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="3tv-Qn-sXN"/>
                                 </constraints>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
                             </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="cKQ-gy-tUi">
                                 <rect key="frame" x="0.0" y="132" width="414" height="681"/>
@@ -40,6 +40,12 @@
                                     <outlet property="delegate" destination="FXF-l2-pul" id="nzC-Gd-Shd"/>
                                 </connections>
                             </collectionView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No movies to display." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAF-Kr-3ed">
+                                <rect key="frame" x="69" y="284" width="276" height="33.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="28"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="zeD-iK-ti0">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="color" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -55,14 +61,17 @@
                             <constraint firstItem="zeD-iK-ti0" firstAttribute="leading" secondItem="Y3o-s4-VgL" secondAttribute="leading" id="Pg9-DS-D4f"/>
                             <constraint firstItem="zeD-iK-ti0" firstAttribute="top" secondItem="Y3o-s4-VgL" secondAttribute="top" id="Ss6-5h-371"/>
                             <constraint firstItem="cKQ-gy-tUi" firstAttribute="top" secondItem="hj2-1j-oek" secondAttribute="bottom" id="Wjf-lm-pHi"/>
+                            <constraint firstItem="hAF-Kr-3ed" firstAttribute="centerY" secondItem="Y3o-s4-VgL" secondAttribute="centerY" constant="-150" id="bAn-ms-SW5"/>
                             <constraint firstItem="hj2-1j-oek" firstAttribute="top" secondItem="Y3o-s4-VgL" secondAttribute="top" id="dop-6H-aq3"/>
                             <constraint firstItem="cKQ-gy-tUi" firstAttribute="leading" secondItem="Y3o-s4-VgL" secondAttribute="leading" id="q53-0N-Jly"/>
+                            <constraint firstItem="hAF-Kr-3ed" firstAttribute="centerX" secondItem="Y3o-s4-VgL" secondAttribute="centerX" id="vVx-eO-TKw"/>
                             <constraint firstItem="Y3o-s4-VgL" firstAttribute="trailing" secondItem="cKQ-gy-tUi" secondAttribute="trailing" id="yA5-tQ-lLt"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Y3o-s4-VgL"/>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="tzf-kJ-wFv">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Mzb-i5-QK0"/>
                         <barButtonItem key="rightBarButtonItem" title="Sort" id="4I5-qw-ajc">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
@@ -74,6 +83,7 @@
                     <connections>
                         <outlet property="activity" destination="zeD-iK-ti0" id="VHx-A0-Lfk"/>
                         <outlet property="collectionView" destination="cKQ-gy-tUi" id="dcK-PX-70A"/>
+                        <outlet property="noDatalabel" destination="hAF-Kr-3ed" id="mra-FC-gY4"/>
                         <outlet property="searchBar" destination="hj2-1j-oek" id="War-Xi-5FM"/>
                     </connections>
                 </viewController>
@@ -187,4 +197,5 @@
             <point key="canvasLocation" x="194.20289855072465" y="-32.142857142857139"/>
         </scene>
     </scenes>
+    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
 </document>

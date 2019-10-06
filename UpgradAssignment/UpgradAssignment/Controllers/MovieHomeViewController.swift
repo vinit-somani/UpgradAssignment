@@ -15,6 +15,10 @@ class MovieHomeViewController: UIViewController {
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
 
+    
+    @IBOutlet weak var noDatalabel: UILabel!
+    
+    
     var homeViewModel = HomeViewModel()
     var moviewItems = [Movie]()
     
@@ -29,6 +33,7 @@ class MovieHomeViewController: UIViewController {
     func initialSetup() {
         title = "Popular Movies"
         searchBar.delegate = self
+        self.noDatalabel.isHidden = true
         let cellNib = UINib(nibName: MovieCellIdentifier, bundle: nil)
         collectionView.register(cellNib, forCellWithReuseIdentifier: MovieCellIdentifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ActivityCell")
@@ -44,23 +49,37 @@ class MovieHomeViewController: UIViewController {
     
 //MARK:- closure for listening the reloading calls
     func listenToReloadClosure(){
-        homeViewModel.reloadCollectionView = {
+        homeViewModel.reloadCollectionView = { [weak self] in
+            guard let self = self else {
+                return
+            }
             DispatchQueue.main.async {
-                if self.homeViewModel.pageNo == 1 || self.homeViewModel.currentSortType != nil {
-                    self.collectionView.reloadData()
-                    self.homeViewModel.currentSortType = nil
-                }
-                else {
-                    let numberOfItems = self.collectionView.numberOfItems(inSection: 0)
-                    var indexPaths = [IndexPath]()
-                    for index in numberOfItems...(self.homeViewModel.movieItems.count-1) {
-                        let indexPathItem = IndexPath.init(item: index, section: 0)
-                        indexPaths.append(indexPathItem)
+                    if self.homeViewModel.pageNo == 1 || self.homeViewModel.currentSortType != nil {
+                        self.collectionView.reloadData()
+                        self.homeViewModel.currentSortType = nil
                     }
-                    self.collectionView.insertItems(at: indexPaths)
-                }
+                    else {
+                        let numberOfItems = self.collectionView.numberOfItems(inSection: 0)
+                        var indexPaths = [IndexPath]()
+                        for index in numberOfItems...(self.homeViewModel.movieItems.count-1) {
+                            let indexPathItem = IndexPath.init(item: index, section: 0)
+                            indexPaths.append(indexPathItem)
+                        }
+                        self.collectionView.insertItems(at: indexPaths)
+                    }
+                
                     self.activity.stopAnimating()
             }
+        }
+        
+        homeViewModel.reloadCollectionViewForSearch = { [weak self] in
+            guard let self = self else {
+                return
+            }
+             DispatchQueue.main.async {
+                    self.collectionView.reloadData()
+                    self.activity.stopAnimating()
+             }
         }
     }
     
@@ -96,26 +115,32 @@ class MovieHomeViewController: UIViewController {
 //MARK:- collection view delegates
 extension MovieHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.homeViewModel.movieItems.count
+        let count = (searchBar.text?.count ?? 0) > 0 ? self.homeViewModel.searchItems.count: self.homeViewModel.movieItems.count
+        self.noDatalabel.isHidden = count > 0 ? true : false
+        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCellIdentifier, for: indexPath) as! MovieCollectionViewCell
-        cell.populateData(item: homeViewModel.movieItems[indexPath.row])
+        let movieModel = self.homeViewModel.searchItems.count > 0 ? self.homeViewModel.searchItems[indexPath.row] : homeViewModel.movieItems[indexPath.row]
+        cell.populateData(item: movieModel)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.view.endEditing(true)
         let model = homeViewModel.movieItems[indexPath.row]
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController{
             vc.movieModel = model
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        if indexPath.row == (homeViewModel.movieItems.count-5)
+        if self.homeViewModel.searchItems.count > 0 {
+            
+        }
+        else if indexPath.row == (homeViewModel.movieItems.count-5)
         {
            getMostPopularData()
         }
@@ -135,5 +160,17 @@ extension MovieHomeViewController: UICollectionViewDelegate, UICollectionViewDat
 extension MovieHomeViewController : UISearchBarDelegate
 {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.view.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count == 0 {
+            self.homeViewModel.searchItems.removeAll()
+            self.collectionView.reloadData()
+            self.view.endEditing(true)
+        }
+        if searchText.count > 1 {
+            self.homeViewModel.filterMoviesBy(text: searchText)
+        }
     }
 }

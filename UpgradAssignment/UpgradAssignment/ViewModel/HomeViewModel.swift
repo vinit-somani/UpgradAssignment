@@ -24,13 +24,24 @@ class HomeViewModel {
             }
         }
     }
+    
+    var searchItems: [Movie] = []
+    {
+        didSet {
+            if let reload = self.reloadCollectionViewForSearch {
+                reload()
+            }
+        }
+    }
+    
     var reloadCollectionView : (() -> Void)? = nil
+    var reloadCollectionViewForSearch : (() -> Void)? = nil
     
     var pageNo = 0
     var totalPages = 0
     
     
-//calling api for most popular moview data and responding to closure accordingly
+    //calling api for most popular moview data and responding to closure accordingly
     func callMostPopularMoviesData() {
         if totalPages >= pageNo
         {
@@ -67,21 +78,38 @@ class HomeViewModel {
         }
     }
     
-//performing desired sorting on moview array
+    //performing desired sorting on moview array
     func sortMoviesBy(sortType: SortType) {
+        let unsortedArray = self.searchItems.count > 0 ? self.searchItems : self.movieItems
         var sortedArray = [Movie]()
         switch sortType {
         case .popularity:
-            sortedArray = movieItems.sorted { (movie1, movie2) -> Bool in
+            sortedArray = unsortedArray.sorted { (movie1, movie2) -> Bool in
                 return movie1.popularity > movie2.popularity
             }
         case .rating:
-            sortedArray = movieItems.sorted { (movie1, movie2) -> Bool in
+            sortedArray = unsortedArray.sorted { (movie1, movie2) -> Bool in
                 return movie1.vote_average > movie2.vote_average
             }
         }
         currentSortType = sortType
-        self.movieItems = sortedArray
+        if self.searchItems.count > 0 {
+            self.searchItems = sortedArray
+        }
+        else {
+            self.movieItems = sortedArray
+        }
     }
+    
+    
+    func filterMoviesBy(text: String) {
+        let filteredArray = movieItems.filter { (movie) -> Bool in
+            //if let title =
+            movie.original_title?.lowercased().removingWhitespaces().contains(text.lowercased().removingWhitespaces()) ?? false
+        }
+        self.searchItems = filteredArray
+    }
+    
 }
+
 
