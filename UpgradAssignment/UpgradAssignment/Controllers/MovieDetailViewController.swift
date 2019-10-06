@@ -22,6 +22,7 @@ class MovieDetailViewController: UIViewController {
         setupMovieModelValuesOnVC()
     }
     
+    //populating movie detail controller
     func setupMovieModelValuesOnVC() {
         self.title = movieModel.original_title
         if movieModel.vote_average > 0 {

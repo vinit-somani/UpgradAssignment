@@ -18,9 +18,9 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
+//MARK:- populating cell with available movie model
     func populateData(item: Movie) {
         movieName.text = item.title ?? ""
         

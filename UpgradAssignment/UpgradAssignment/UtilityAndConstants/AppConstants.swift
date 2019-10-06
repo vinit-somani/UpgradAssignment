@@ -42,8 +42,9 @@ let apiKey = "1d4bf29685aafb1436afc4e9ea61b5a3"
 let API_BASE_URL    = "https://api.themoviedb.org/3/"
 let IMAGE_BASE_URL      = "https://image.tmdb.org/t/p/w500/"
 
+//MARK:- Sub urls
 let popularMoviePath = "movie/popular"
 
-//Completion Blocks
+//MARK:- Completion Blocks
 typealias RequestCompletionBlock = (Data?, URLResponse?, Error?) -> ()
 typealias APISuccessBlock = (_ isSuccess: Bool, _ errorMsg: String?) -> ()

@@ -24,6 +24,8 @@ class MovieHomeViewController: UIViewController {
         self.initialSetup()
     }
     
+    
+//MARK:- initial setup for the homeViewController
     func initialSetup() {
         title = "Popular Movies"
         searchBar.delegate = self
@@ -39,6 +41,8 @@ class MovieHomeViewController: UIViewController {
         homeViewModel.callMostPopularMoviesData()
     }
     
+    
+//MARK:- closure for listening the reloading calls
     func listenToReloadClosure(){
         homeViewModel.reloadCollectionView = {
             DispatchQueue.main.async {
@@ -81,6 +85,7 @@ class MovieHomeViewController: UIViewController {
         self.present(alertview, animated: true, completion: nil)
     }
     
+//MARK:- calling sorting in view model
     func sortMoviesInModel(sortBy: SortType) {
         activity.startAnimating()
         self.collectionView.contentOffset = CGPoint.zero
@@ -88,7 +93,8 @@ class MovieHomeViewController: UIViewController {
     }
 }
 
-extension MovieHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+//MARK:- collection view delegates
+extension MovieHomeViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.homeViewModel.movieItems.count
     }
@@ -114,9 +120,7 @@ extension MovieHomeViewController: UICollectionViewDelegate, UICollectionViewDat
            getMostPopularData()
         }
     }
-}
 
-extension MovieHomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
     {
         return CGSize.init(width: moviewCellWidth, height: movieCellHeight)

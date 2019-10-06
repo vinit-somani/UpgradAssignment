@@ -15,7 +15,6 @@ protocol HomeViewModelDelegate: NSObjectProtocol {
 }
 
 class HomeViewModel {
-    
     var currentSortType: SortType?
     var movieItems: [Movie] = []
     {
@@ -25,15 +24,14 @@ class HomeViewModel {
             }
         }
     }
-    
     var reloadCollectionView : (() -> Void)? = nil
     
     var pageNo = 0
     var totalPages = 0
     
     
+//calling api for most popular moview data and responding to closure accordingly
     func callMostPopularMoviesData() {
-        
         if totalPages >= pageNo
         {
             pageNo += 1
@@ -69,6 +67,7 @@ class HomeViewModel {
         }
     }
     
+//performing desired sorting on moview array
     func sortMoviesBy(sortType: SortType) {
         var sortedArray = [Movie]()
         switch sortType {
