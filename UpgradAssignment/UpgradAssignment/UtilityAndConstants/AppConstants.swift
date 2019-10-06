@@ -8,9 +8,28 @@
 
 import UIKit
 
+
+public enum ParameterEncoding {
+    case JSON
+    case URL
+    case BODY
+}
+
 let screenHeight:CGFloat = UIScreen.main.bounds.height
 let screenWidth:CGFloat = UIScreen.main.bounds.width
 let moviewCellWidth = (screenWidth - 20 - 16) / 2
-let movieCellHeight = moviewCellWidth
+let movieCellHeight = moviewCellWidth*3/2
 let networkErrorMessage = "Please check your device's network and retry!"
 let MovieCellIdentifier = "MovieCollectionViewCell"
+let apiKey = "1d4bf29685aafb1436afc4e9ea61b5a3"
+
+
+//MARK:- Base Path urls
+let API_BASE_URL    = "https://api.themoviedb.org/3/"
+let IMAGE_BASE_URL      = "https://image.tmdb.org/t/p/w500/"
+
+let popularMoviePath = "movie/popular"
+
+//Completion Blocks
+typealias RequestCompletionBlock = (Data?, URLResponse?, Error?) -> ()
+typealias APISuccessBlock = (_ isSuccess: Bool, _ errorMsg: String?) -> ()

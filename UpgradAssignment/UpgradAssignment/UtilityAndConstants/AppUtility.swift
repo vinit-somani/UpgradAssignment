@@ -7,3 +7,16 @@
 //
 
 import Foundation
+import Reachability
+
+class AppUtility {
+    static let sharedInstance = AppUtility()
+    var reachability: Reachability?
+}
+
+
+extension String {
+    func removingWhitespaces() -> String {
+        return components(separatedBy: .whitespaces).joined()
+    }
+}
