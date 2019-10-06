@@ -22,6 +22,7 @@
 		B85DAEBC2349133400ACEA41 /* SessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85DAEB62349133400ACEA41 /* SessionManager.swift */; };
 		B85DAEBD2349133400ACEA41 /* ServiceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85DAEB72349133400ACEA41 /* ServiceManager.swift */; };
 		B85DAEBE2349133400ACEA41 /* RequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85DAEB82349133400ACEA41 /* RequestManager.swift */; };
+		B85DAEC22349F57300ACEA41 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85DAEC12349F57300ACEA41 /* MovieDetailViewController.swift */; };
 		D5D185A00DCF88715107C77C /* Pods_UpgradAssignment.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2823144CCEE32A5ABFFEA236 /* Pods_UpgradAssignment.framework */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,7 @@
 		B85DAEB62349133400ACEA41 /* SessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SessionManager.swift; sourceTree = "<group>"; };
 		B85DAEB72349133400ACEA41 /* ServiceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceManager.swift; sourceTree = "<group>"; };
 		B85DAEB82349133400ACEA41 /* RequestManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestManager.swift; sourceTree = "<group>"; };
+		B85DAEC12349F57300ACEA41 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		D2B84AD3DCE6874629CF7731 /* Pods-UpgradAssignment.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpgradAssignment.release.xcconfig"; path = "Target Support Files/Pods-UpgradAssignment/Pods-UpgradAssignment.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -108,6 +110,7 @@
 			isa = PBXGroup;
 			children = (
 				B85DAE9A2348960800ACEA41 /* MovieHomeViewController.swift */,
+				B85DAEC12349F57300ACEA41 /* MovieDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				B85DAEB92349133400ACEA41 /* Service.swift in Sources */,
 				B85DAEBE2349133400ACEA41 /* RequestManager.swift in Sources */,
 				B85DAEB22348D9D800ACEA41 /* HomeDataModel.swift in Sources */,
+				B85DAEC22349F57300ACEA41 /* MovieDetailViewController.swift in Sources */,
 				B85DAE9F2348A39500ACEA41 /* MovieCollectionViewCell.swift in Sources */,
 				B85DAE9B2348960800ACEA41 /* MovieHomeViewController.swift in Sources */,
 				B832E2312347D313004C0296 /* AppDelegate.swift in Sources */,

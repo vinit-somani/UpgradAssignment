@@ -62,7 +62,7 @@ class MovieHomeViewController: UIViewController {
     
     @IBAction func sortButtonPressed(_ sender: Any) {
         
-        let alertview = UIAlertController.init(title: "Sort Movies", message: "", preferredStyle: .actionSheet)
+        let alertview = UIAlertController.init(title: nil, message: "Sort Movie", preferredStyle: .actionSheet)
         alertview.addAction(UIAlertAction.init(title: SortType.popularity.name, style: .default, handler: { (action) in
             DispatchQueue.main.async {
                 self.sortMoviesInModel(sortBy: .popularity)
@@ -100,7 +100,12 @@ extension MovieHomeViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
+        let model = homeViewModel.movieItems[indexPath.row]
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MovieDetailVC") as? MovieDetailViewController{
+            vc.movieModel = model
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
