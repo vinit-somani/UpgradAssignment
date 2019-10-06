@@ -23,7 +23,6 @@ class MovieDetailViewController: UIViewController {
     }
     
     func setupMovieModelValuesOnVC() {
-        
         self.title = movieModel.original_title
         if movieModel.vote_average > 0 {
             self.movieRating.text = "\(movieModel.vote_average)"
@@ -32,11 +31,8 @@ class MovieDetailViewController: UIViewController {
             self.movieRating.text = "Not mentioned"
         }
 
-        
-        
         let releaseDate = movieModel.release_date ?? "Not mentioned."
         self.movieReleaseDate.text = releaseDate
-
 
         var description = "No description available."
         if let overview = movieModel.overview, overview.count > 0 {
