@@ -36,8 +36,8 @@ struct Movie: Codable {
 
     var id                  : Int?
     var title               : String?
-    var popularity          : Double?
-    var vote_average        : Double?
+    var popularity          : Double = 0.0
+    var vote_average        : Double = 0.0
     var poster_path         : String?
     var overview            : String?
     var release_date        : String?
@@ -60,8 +60,8 @@ struct Movie: Codable {
             let values = try decoder.container(keyedBy: CodingKeys.self)
             id = try values.decodeIfPresent(Int.self, forKey: .id)
             title = try values.decodeIfPresent(String.self, forKey: .title)
-            popularity = try values.decodeIfPresent(Double.self, forKey: .popularity)
-            vote_average = try values.decodeIfPresent(Double.self, forKey: .vote_average)
+            popularity = try values.decodeIfPresent(Double.self, forKey: .popularity) ?? 0.0
+            vote_average = try values.decodeIfPresent(Double.self, forKey: .vote_average) ?? 0.0
             poster_path = try values.decodeIfPresent(String.self, forKey: .poster_path)
             overview = try values.decodeIfPresent(String.self, forKey: .overview)
             release_date = try values.decodeIfPresent(String.self, forKey: .release_date)

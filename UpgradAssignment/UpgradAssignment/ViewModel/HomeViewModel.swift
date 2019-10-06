@@ -15,6 +15,8 @@ protocol HomeViewModelDelegate: NSObjectProtocol {
 }
 
 class HomeViewModel {
+    
+    var currentSortType: SortType?
     var movieItems: [Movie] = []
     {
         didSet {
@@ -65,6 +67,22 @@ class HomeViewModel {
                 }
             }
         }
+    }
+    
+    func sortMoviesBy(sortType: SortType) {
+        var sortedArray = [Movie]()
+        switch sortType {
+        case .popularity:
+            sortedArray = movieItems.sorted { (movie1, movie2) -> Bool in
+                return movie1.popularity > movie2.popularity
+            }
+        case .rating:
+            sortedArray = movieItems.sorted { (movie1, movie2) -> Bool in
+                return movie1.vote_average > movie2.vote_average
+            }
+        }
+        currentSortType = sortType
+        self.movieItems = sortedArray
     }
 }
 

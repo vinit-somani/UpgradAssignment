@@ -14,7 +14,7 @@ class MovieHomeViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
-    
+
     var homeViewModel = HomeViewModel()
     var moviewItems = [Movie]()
     
@@ -42,8 +42,9 @@ class MovieHomeViewController: UIViewController {
     func listenToReloadClosure(){
         homeViewModel.reloadCollectionView = {
             DispatchQueue.main.async {
-                if self.homeViewModel.pageNo == 1 {
+                if self.homeViewModel.pageNo == 1 || self.homeViewModel.currentSortType != nil {
                     self.collectionView.reloadData()
+                    self.homeViewModel.currentSortType = nil
                 }
                 else {
                     let numberOfItems = self.collectionView.numberOfItems(inSection: 0)
@@ -60,6 +61,30 @@ class MovieHomeViewController: UIViewController {
     }
     
     @IBAction func sortButtonPressed(_ sender: Any) {
+        
+        let alertview = UIAlertController.init(title: "Sort Movies", message: "", preferredStyle: .actionSheet)
+        alertview.addAction(UIAlertAction.init(title: SortType.popularity.name, style: .default, handler: { (action) in
+            DispatchQueue.main.async {
+                self.sortMoviesInModel(sortBy: .popularity)
+            }
+        }))
+        
+        alertview.addAction(UIAlertAction.init(title: SortType.rating.name, style: .default, handler: { (action) in
+            DispatchQueue.main.async {
+                self.sortMoviesInModel(sortBy: .rating)
+            }
+        }))
+        
+        alertview.addAction(UIAlertAction.init(title: "Cancel", style: .cancel, handler: { (action) in
+        }))
+        
+        self.present(alertview, animated: true, completion: nil)
+    }
+    
+    func sortMoviesInModel(sortBy: SortType) {
+        activity.startAnimating()
+        self.collectionView.contentOffset = CGPoint.zero
+        self.homeViewModel.sortMoviesBy(sortType: sortBy)
     }
 }
 

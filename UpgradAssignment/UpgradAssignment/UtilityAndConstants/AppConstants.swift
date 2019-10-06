@@ -15,6 +15,20 @@ public enum ParameterEncoding {
     case BODY
 }
 
+public enum SortType: String {
+    case popularity
+    case rating
+    
+    var name: String {
+        switch self {
+        case .popularity:
+            return "Most Popular"
+        case .rating:
+            return "Top Rated"
+        }
+    }
+}
+
 let screenHeight:CGFloat = UIScreen.main.bounds.height
 let screenWidth:CGFloat = UIScreen.main.bounds.width
 let moviewCellWidth = (screenWidth - 20 - 16) / 2
