@@ -12,8 +12,12 @@ class MovieHomeViewController: UIViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    
     var homeViewModel = HomeViewModel()
     var moviewItems = [Movie]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +30,13 @@ class MovieHomeViewController: UIViewController {
         let cellNib = UINib(nibName: MovieCellIdentifier, bundle: nil)
         collectionView.register(cellNib, forCellWithReuseIdentifier: MovieCellIdentifier)
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "ActivityCell")
-        homeViewModel.callMostPopularMoviesData()
+        getMostPopularData()
         listenToReloadClosure()
+    }
+    
+    func getMostPopularData() {
+        activity.startAnimating()
+        homeViewModel.callMostPopularMoviesData()
     }
     
     func listenToReloadClosure(){
@@ -45,6 +54,7 @@ class MovieHomeViewController: UIViewController {
                     }
                     self.collectionView.insertItems(at: indexPaths)
                 }
+                    self.activity.stopAnimating()
             }
         }
     }
@@ -71,7 +81,7 @@ extension MovieHomeViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if indexPath.row == (homeViewModel.movieItems.count-5)
         {
-            homeViewModel.callMostPopularMoviesData()
+           getMostPopularData()
         }
     }
 }

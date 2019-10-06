@@ -40,6 +40,11 @@
                                     <outlet property="delegate" destination="FXF-l2-pul" id="nzC-Gd-Shd"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="zeD-iK-ti0">
+                                <rect key="frame" x="190" y="431" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -63,6 +68,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="activity" destination="zeD-iK-ti0" id="VHx-A0-Lfk"/>
                         <outlet property="collectionView" destination="cKQ-gy-tUi" id="dcK-PX-70A"/>
                         <outlet property="searchBar" destination="hj2-1j-oek" id="War-Xi-5FM"/>
                     </connections>
